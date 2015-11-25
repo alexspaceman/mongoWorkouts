@@ -6,7 +6,7 @@ var express = require('express');
 var app = express();
 
 var router = express.Router();
-var scriptRouter = express.Router();
+var buildRouter = express.Router();
 var apiRouter = express.Router();
 
 var port = process.env.PORT || 80;
@@ -30,9 +30,9 @@ router.get('/', function (req, res) {
   });
 });
 
-// scripts
-scriptRouter.get('/main.build.js', function (req, res) {
-  res.sendFile('build/js/main.build.js', { root: __dirname }, function (err) {
+// build files
+buildRouter.get('/main.build.js', function (req, res) {
+  res.sendFile('/main.build.js', { root: __dirname }, function (err) {
     if (err) {
       console.log(err);
       res.status(err.status).end();
@@ -42,14 +42,13 @@ scriptRouter.get('/main.build.js', function (req, res) {
   });
 });
 
-scriptRouter.get('test.js', function (req, res) {
-  console.log('working?');
-  res.sendFile('build/test.js', { root: __dirname }, function (err) {
+buildRouter.get('/styles.build.css', function (req, res) {
+  res.sendFile('/styles.build.css', { root: __dirname }, function (err) {
     if (err) {
       console.log(err);
       res.status(err.status).end();
     } else {
-      console.log('loaded test script');
+      console.log('loaded stylesheet');
     }
   });
 });
@@ -61,7 +60,7 @@ apiRouter.get('/', function (req, res) {
 
 // USER ROUTER
 app.use('/', router);
-app.use('/scripts', scriptRouter);
+app.use('/build', buildRouter);
 app.use('/api', apiRouter);
 
 // START THE SERVER

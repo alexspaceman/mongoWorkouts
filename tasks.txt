@@ -1,0 +1,14 @@
+=======================
+== OVERALL GOALS     ==
+=======================
+form based application
+  - takes user input about workouts
+  - sends them into a mongodb
+  - displays and graphs
+  - port to phone app (maybe react native)
+  - offline functionality that sends data when internet connection available
+
+
+=======================
+== 2015-11-25 @ 1000 ==
+=======================

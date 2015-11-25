@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 
 const router = express.Router()
-const scriptRouter = express.Router()
+const buildRouter = express.Router()
 const apiRouter = express.Router()
 
 const port = process.env.PORT || 80
@@ -31,9 +31,9 @@ router.get('/', (req, res) => {
   })
 })
 
-// scripts
-scriptRouter.get('/main.build.js', (req, res) => {
-  res.sendFile('build/js/main.build.js', { root: __dirname }, (err) => {
+// build files
+buildRouter.get('/main.build.js', (req, res) => {
+  res.sendFile('/main.build.js', { root: __dirname }, (err) => {
     if (err) {
       console.log(err)
       res.status(err.status).end()
@@ -44,15 +44,14 @@ scriptRouter.get('/main.build.js', (req, res) => {
   })
 })
 
-scriptRouter.get('test.js', (req, res) => {
-  console.log('working?')
-  res.sendFile('build/test.js', { root: __dirname }, (err) => {
+buildRouter.get('/styles.build.css', (req, res) => {
+  res.sendFile('/styles.build.css', { root: __dirname }, (err) => {
     if (err) {
       console.log(err)
       res.status(err.status).end()
     }
     else {
-      console.log('loaded test script')
+      console.log('loaded stylesheet')
     }
   })
 })
@@ -65,7 +64,7 @@ apiRouter.get('/', (req, res) => {
 
 // USER ROUTER
 app.use('/', router)
-app.use('/scripts', scriptRouter)
+app.use('/build', buildRouter)
 app.use('/api', apiRouter)
 
 

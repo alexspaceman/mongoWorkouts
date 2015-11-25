@@ -13,14 +13,14 @@ gulp.task('server', function() {
 })
 
 gulp.task('styles', function() {
-  gulp.src('./source/styles/styles.styl')
+  gulp.src('./source/styles/*.styl')
     .pipe(stylus())
     .pipe(concat('styles.build.css'))
     .pipe(gulp.dest('./build'))
 })
 
 gulp.task('watch', function() {
-  gulp.watch(['source/js/*.jsx', 'styles/*.styl'], ['server', 'styles'])
+  gulp.watch(['source/js/*.jsx', 'source/styles/*.styl'], ['server', 'styles'])
 })
 
 gulp.task('default', ['server', 'styles', 'watch'])
