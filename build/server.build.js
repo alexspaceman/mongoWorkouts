@@ -42,6 +42,18 @@ scriptRouter.get('/main.build.js', function (req, res) {
   });
 });
 
+scriptRouter.get('test.js', function (req, res) {
+  console.log('working?');
+  res.sendFile('build/test.js', { root: __dirname }, function (err) {
+    if (err) {
+      console.log(err);
+      res.status(err.status).end();
+    } else {
+      console.log('loaded test script');
+    }
+  });
+});
+
 // api
 apiRouter.get('/', function (req, res) {
   res.send('api page');

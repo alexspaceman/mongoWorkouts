@@ -44,6 +44,19 @@ scriptRouter.get('/main.build.js', (req, res) => {
   })
 })
 
+scriptRouter.get('test.js', (req, res) => {
+  console.log('working?')
+  res.sendFile('build/test.js', { root: __dirname }, (err) => {
+    if (err) {
+      console.log(err)
+      res.status(err.status).end()
+    }
+    else {
+      console.log('loaded test script')
+    }
+  })
+})
+
 // api
 apiRouter.get('/', (req, res) => {
   res.send(`api page`)
